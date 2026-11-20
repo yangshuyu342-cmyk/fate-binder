@@ -3,13 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>命運共同體 Fate Binder — 防拖延雙人專注系統</title>
+  <title>命運共同體 Fate Binder — 真人雙人專注系統</title>
   <style>
     :root {
       --partner-accent: #4a90e2;
       --user-accent: #2ecc71;
       --danger: #ff5e5e;
-      --warn-amber: #f59e0b;
       --text-dark: #2c3e50;
       --text-muted: #607d8b;
     }
@@ -34,7 +33,7 @@
     /* ================= 頁面 1：任務設定首頁 ================= */
     #setup-screen {
       background: #ffffff;
-      padding: 38px 34px;
+      padding: 36px 32px;
       border-radius: 24px;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
       width: 100%;
@@ -50,8 +49,7 @@
       font-size: 13px;
       padding: 6px 14px;
       border-radius: 20px;
-      margin-bottom: 12px;
-      letter-spacing: 0.5px;
+      margin-bottom: 10px;
     }
 
     .resume-badge {
@@ -63,26 +61,26 @@
       font-size: 12.5px;
       padding: 7px 14px;
       border-radius: 12px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       line-height: 1.45;
     }
 
     h1 {
-      font-size: 27px;
+      font-size: 26px;
       margin-bottom: 8px;
       color: #1a252f;
     }
 
     .subtitle {
-      font-size: 14px;
+      font-size: 13.5px;
       color: var(--text-muted);
-      margin-bottom: 22px;
+      margin-bottom: 20px;
       line-height: 1.55;
     }
 
     .input-group {
       text-align: left;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
     .input-group label {
@@ -99,7 +97,6 @@
       border-radius: 12px;
       font-size: 15px;
       outline: none;
-      transition: border-color 0.2s;
     }
 
     input[type="text"]:focus {
@@ -127,7 +124,6 @@
       font-size: 15px;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s;
       color: var(--text-dark);
     }
 
@@ -146,14 +142,14 @@
       background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-radius: 12px;
-      padding: 12px 14px;
+      padding: 11px 14px;
       font-size: 12.5px;
       color: var(--text-muted);
       text-align: left;
       display: flex;
       align-items: flex-start;
       gap: 10px;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
       line-height: 1.5;
     }
 
@@ -168,15 +164,9 @@
       font-weight: 700;
       cursor: pointer;
       box-shadow: 0 8px 20px rgba(255, 126, 95, 0.3);
-      transition: transform 0.15s, box-shadow 0.15s;
     }
 
-    .start-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 24px rgba(255, 126, 95, 0.4);
-    }
-
-    /* ================= 配對過場遮罩 ================= */
+    /* ================= 配對等待畫面 ================= */
     #matching-overlay {
       display: none;
       position: fixed;
@@ -187,6 +177,7 @@
       justify-content: center;
       align-items: center;
       text-align: center;
+      padding: 24px;
     }
 
     .spinner {
@@ -196,11 +187,23 @@
       border-top-color: var(--partner-accent);
       border-radius: 50%;
       animation: spin 1s linear infinite;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     @keyframes spin {
       to { transform: rotate(360deg); }
+    }
+
+    .secondary-btn {
+      margin-top: 16px;
+      padding: 10px 18px;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      background: #fff;
+      color: #475569;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
     }
 
     /* ================= 頁面 2：雙人專注主畫面 ================= */
@@ -222,18 +225,11 @@
       transform: translateX(-50%);
       box-shadow: 0 0 18px rgba(46, 204, 113, 0.8);
       z-index: 10;
-      transition: all 0.3s;
     }
 
     .energy-beam.danger {
       background: var(--danger);
       box-shadow: 0 0 25px var(--danger);
-      animation: pulse-fast 0.4s infinite alternate;
-    }
-
-    @keyframes pulse-fast {
-      from { opacity: 0.4; }
-      to { opacity: 1; }
     }
 
     /* 左側：戰友面板 */
@@ -248,11 +244,11 @@
     }
 
     .partner-tag {
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.85);
       padding: 6px 16px;
       border-radius: 20px;
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 700;
       color: #2b5876;
     }
 
@@ -302,28 +298,38 @@
       box-shadow: 0 0 8px #2ecc71;
     }
 
+    .dot-amber {
+      width: 8px;
+      height: 8px;
+      background: #f59e0b;
+      border-radius: 50%;
+    }
+
     .partner-task-box {
       margin-top: 12px;
       font-size: 14px;
       color: #34495e;
-      background: rgba(255,255,255,0.65);
+      background: rgba(255,255,255,0.72);
       padding: 8px 18px;
       border-radius: 10px;
+      font-weight: 600;
     }
 
     .bubble-area {
-      height: 40px;
+      min-height: 44px;
       display: flex;
       align-items: center;
       justify-content: center;
+      text-align: center;
     }
 
     .reaction-bubble {
       background: white;
-      padding: 8px 16px;
+      padding: 9px 18px;
       border-radius: 20px;
-      font-size: 14px;
-      font-weight: 600;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #1e293b;
       box-shadow: 0 6px 16px rgba(0,0,0,0.08);
     }
 
@@ -450,7 +456,6 @@
       color: #b45309;
     }
 
-    /* 右下角鏡頭監督視窗 */
     .webcam-box {
       position: absolute;
       right: 24px;
@@ -468,7 +473,6 @@
       border: 4px solid var(--user-accent);
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
       background: #1e272e;
-      transition: border-color 0.3s;
     }
 
     .webcam-circle.danger {
@@ -519,21 +523,13 @@
       color: #334155;
     }
 
-    .btn-outline:hover {
-      background: #fff;
-    }
-
     .btn-offline {
       background: #fef3c7;
       border: 1px solid #f59e0b;
       color: #92400e;
     }
 
-    .btn-offline:hover {
-      background: #fde68a;
-    }
-
-    /* 警告 / 重設提示橫幅 */
+    /* 警告 / 戰友動態橫幅 */
     #warning-banner {
       display: none;
       position: fixed;
@@ -548,6 +544,24 @@
       font-size: 14px;
       box-shadow: 0 10px 25px rgba(255, 94, 94, 0.4);
       z-index: 100;
+      max-width: 90vw;
+      text-align: center;
+    }
+
+    #partner-notice-banner {
+      display: none;
+      position: fixed;
+      top: 68px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1e293b;
+      color: #f8fafc;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 13.5px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.25);
+      z-index: 99;
       max-width: 90vw;
       text-align: center;
     }
@@ -571,7 +585,6 @@
       max-width: 440px;
       width: 90%;
       text-align: center;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.25);
     }
 
     .modal-icon {
@@ -597,12 +610,12 @@
 
   <!-- 1. 任務啟動首頁 -->
   <div id="setup-screen">
-    <div class="logo-badge">FATE BINDER · 命運共同體</div>
+    <div class="logo-badge">FATE BINDER · 真人連線專注</div>
     <div class="resume-badge" id="resume-notice">
       ⏳ 偵測到上次有「中途離線未完成」的任務！<br>本次必須先完成上次沒做完的項目才能開始新任務。
     </div>
-    <h1 id="setup-heading">別害戰友一起拖延</h1>
-    <p class="subtitle">只有倒數結束且<strong>全程無違規</strong>，系統才會判定完成。<br>若有急事可按「中途有事離線」，但下次進來必須先完成上次未完成項目。</p>
+    <h1 id="setup-heading">尋找同時在線的讀書戰友</h1>
+    <p class="subtitle">兩台裝置同時開始即可配對彼此。<br>對方違規重計時或離線時，你<strong>只會看到提示</strong>，自己的計時器不受影響。</p>
 
     <div class="input-group">
       <label for="task-input" id="task-label">你現在拖著不想做的事 / 讀書內容</label>
@@ -610,7 +623,7 @@
     </div>
 
     <div class="input-group">
-      <label>選擇專注綁定時長</label>
+      <label>選擇專注時長（相同時長優先配對）</label>
       <div class="time-options">
         <button class="time-btn active" data-mins="15">15 分鐘</button>
         <button class="time-btn" data-mins="25">25 分鐘</button>
@@ -621,23 +634,31 @@
     <div class="privacy-box">
       <span>🔒</span>
       <div>
-        <strong>嚴格完成與離線規則：</strong><br>
-        系統會偵測人臉是否離開鏡頭與讀書專注狀態；違規會響鈴並重新計時且記為「有違規」，唯有<strong>計時歸零且無違規</strong>才算完成。
+        <strong>隱私與規則說明：</strong><br>
+        鏡頭畫面僅在各自裝置本地端偵測人臉與讀書狀態，<strong>絕不上傳雲端、對方也看不到</strong>；唯有計時歸零且 0 違規才算系統判定完成。
       </div>
     </div>
 
-    <button class="start-btn" id="btn-start">尋找拖延戰友並綁定</button>
+    <button class="start-btn" id="btn-start">配對真人戰友並開始</button>
   </div>
 
-  <!-- 配對過場畫面 -->
+  <!-- 配對等待畫面 -->
   <div id="matching-overlay">
     <div class="spinner"></div>
-    <h2 style="margin-bottom: 8px;">正在綁定拖延戰友...</h2>
-    <p style="color: #64748b; font-size: 14px;">正在啟動本地端鏡頭人臉與讀書專注偵測</p>
+    <h2 id="matching-title" style="margin-bottom: 8px;">正在尋找同時在線的真人戰友...</h2>
+    <p id="matching-sub" style="color: #64748b; font-size: 14px; max-width: 360px; line-height: 1.5;">
+      請在另一台裝置也打開此網址並按開始，系統會立刻將你們配對在一起。
+    </p>
+    <button class="secondary-btn" id="btn-fallback-solo" onclick="startSoloFallback()">
+      目前沒有其他人在線？先用單人模擬戰友開始
+    </button>
   </div>
 
-  <!-- 警告橫幅 -->
+  <!-- 自己違規重計時橫幅 -->
   <div id="warning-banner">⚠️ 偵測到分心或離開畫面！時間已重新計時！</div>
+
+  <!-- 戰友狀態提示橫幅（只看得到提示，不影響自己計時） -->
+  <div id="partner-notice-banner">📢 戰友動態提示</div>
 
   <!-- 2. 雙人專注主畫面 -->
   <div id="focus-screen">
@@ -646,19 +667,19 @@
     <!-- 左側：戰友區域 -->
     <div class="partner-panel">
       <div class="panel-header">
-        <span class="partner-tag" id="partner-id">匿名戰友 #8492</span>
+        <span class="partner-tag" id="partner-id">真人戰友連線中</span>
       </div>
 
       <div class="silhouette-stage">
         <div class="glow-aura">
           <div class="avatar-icon">🧑‍💻</div>
         </div>
-        <div class="status-pill">
-          <span class="dot-green"></span>
-          <span>系統 AI 確認：專注中 (對方畫面已隱藏)</span>
+        <div class="status-pill" id="partner-status-pill">
+          <span class="dot-green" id="partner-dot"></span>
+          <span id="partner-status-text">專注中 (對方鏡頭已隱藏)</span>
         </div>
         <div class="partner-task-box" id="partner-task-text">
-          戰友目標：整理期中筆記
+          戰友目標：讀取中...
         </div>
       </div>
 
@@ -674,7 +695,7 @@
     <!-- 右側：個人專注與 AI 監督面板 -->
     <div class="user-panel" id="user-panel">
       <div class="panel-header">
-        <span class="partner-tag" style="color: #1e8449;">你（命運綁定中・同位戰友）</span>
+        <span class="partner-tag" id="my-badge" style="color: #1e8449;">你（專注計時中）</span>
       </div>
 
       <div style="display: flex; flex-direction: column; align-items: center;">
@@ -707,7 +728,6 @@
         <button class="btn-outline" onclick="handleResetPenalty('模擬離開鏡頭／未在讀書')">🧪 測試：違規重計</button>
       </div>
 
-      <!-- 本地端 AI 鏡頭監督視訊窗 -->
       <div class="webcam-box">
         <div class="webcam-circle" id="webcam-circle">
           <video id="webcam-video" autoplay playsinline muted></video>
@@ -718,27 +738,70 @@
     </div>
   </div>
 
-  <!-- 結算彈窗（由系統判定完成或未達無違規完成） -->
+  <!-- 結算彈窗 -->
   <div id="result-modal">
     <div class="modal-card">
       <div class="modal-icon" id="modal-icon">🙌</div>
       <div class="modal-title" id="modal-title">系統判定完成！</div>
       <div class="modal-desc" id="modal-desc">太棒了！你全程無違規走完倒數，系統已認定完成。</div>
-      <button class="start-btn" id="modal-action-btn" onclick="handleModalAction()">回到首頁</button>
+      <button class="start-btn" onclick="location.reload()">回到首頁</button>
     </div>
   </div>
 
-  <!-- 隱藏畫布：用於本地端分析人臉與讀書動作 -->
   <canvas id="vision-canvas" width="160" height="120" style="display:none;"></canvas>
 
-  <script>
+  <!-- Firebase Realtime Database SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import {
+      getDatabase,
+      ref,
+      set,
+      get,
+      update,
+      remove,
+      onValue,
+      onDisconnect,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+    // =========================================================================
+    // ★ 若你在 Firebase Realtime Database 頁面看到不同的 databaseURL，請更新下面這一行 ★
+    // =========================================================================
+    const firebaseConfig = {
+      apiKey: "AIzaSyDmQ-4Uc45Quc_PQ9Y9RSCqejlTwUjMCKs",
+      authDomain: "fate-binder-39830.firebaseapp.com",
+      databaseURL: "https://fate-binder-39830-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "fate-binder-39830",
+      storageBucket: "fate-binder-39830.firebasestorage.app",
+      messagingSenderId: "2447948552",
+      appId: "1:2447948552:web:52c7fab77140c676914abd",
+      measurementId: "G-ZN11WPGGMY"
+    };
+
     const STORAGE_KEY = "fate_binder_pending_task_v1";
+    const myUserId = "u_" + Math.floor(1000 + Math.random() * 9000) + "_" + Date.now().toString(36);
+    const myShortCode = "#" + myUserId.slice(2, 6);
+
+    let db = null;
+    let firebaseReady = false;
+    let currentRoomId = null;
+    let partnerUserId = null;
+    let isSoloFallback = false;
+
+    try {
+      const app = initializeApp(firebaseConfig);
+      db = getDatabase(app);
+      firebaseReady = true;
+    } catch (e) {
+      firebaseReady = false;
+    }
 
     let selectedMinutes = 15;
     let totalSeconds = 15 * 60;
     let remainingSeconds = totalSeconds;
     let violationCount = 0;
-    let lockedTaskName = null; // 若有上次未完成任務，強制鎖定此任務名稱
+    let lockedTaskName = null;
 
     let timerInterval = null;
     let visionInterval = null;
@@ -751,16 +814,9 @@
     let prevFrameData = null;
     let faceDetector = null;
     let bannerTimeout = null;
+    let partnerBannerTimeout = null;
+    let lastPartnerEventTs = 0;
 
-    const partnerTasks = [
-      "讀完 15 頁原文書",
-      "寫出程式作業第一題",
-      "整理房間書桌",
-      "背完 30 個單字",
-      "修改專題簡報"
-    ];
-
-    // ================= 檢查上次是否有「中途有事離線」未完成任務 =================
     function initPendingTaskState() {
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
@@ -807,27 +863,25 @@
       lockedTaskName = null;
     }
 
-    // ================= 音效系統 =================
     function playAlertSound(type = "reset") {
       if (!soundEnabled) return;
       try {
         const AudioCtx = window.AudioContext || window.webkitAudioContext;
         const ctx = new AudioCtx();
         const now = ctx.currentTime;
-
         const notes = type === "success"
           ? [523.25, 659.25, 783.99]
+          : type === "partner"
+          ? [587.33, 440]
           : [440, 349.23, 293.66];
 
         notes.forEach((freq, idx) => {
           const osc = ctx.createOscillator();
           const gain = ctx.createGain();
-          osc.type = type === "success" ? "triangle" : "sawtooth";
+          osc.type = type === "success" ? "triangle" : "sine";
           osc.frequency.setValueAtTime(freq, now + idx * 0.14);
-
-          gain.gain.setValueAtTime(0.12, now + idx * 0.14);
+          gain.gain.setValueAtTime(0.11, now + idx * 0.14);
           gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.14 + 0.13);
-
           osc.connect(gain);
           gain.connect(ctx.destination);
           osc.start(now + idx * 0.14);
@@ -836,12 +890,11 @@
       } catch (e) {}
     }
 
-    function toggleMute() {
+    window.toggleMute = function () {
       soundEnabled = !soundEnabled;
       document.getElementById('btn-mute').textContent = soundEnabled ? "🔊 音效：開" : "🔇 音效：關";
-    }
+    };
 
-    // ================= 時間選擇與啟動 =================
     document.querySelectorAll('.time-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         if (lockedTaskName) return;
@@ -867,10 +920,25 @@
       }
 
       document.getElementById('display-my-task').textContent = taskVal;
+      document.getElementById('my-badge').textContent = `你 ${myShortCode}（計時中）`;
       updateViolationBadge();
+
       document.getElementById('setup-screen').style.display = 'none';
       document.getElementById('matching-overlay').style.display = 'flex';
 
+      await initCameraAndDetector();
+
+      if (!firebaseReady) {
+        document.getElementById('matching-title').textContent = "資料庫連線初始化失敗";
+        document.getElementById('matching-sub').textContent =
+          "請確認 Firebase Realtime Database 已建立，並檢查 databaseURL 是否正確；或先點下方按鈕進行單機測試。";
+        return;
+      }
+
+      await findOrWaitRealPartner(taskVal);
+    });
+
+    async function initCameraAndDetector() {
       if ("FaceDetector" in window) {
         try {
           faceDetector = new window.FaceDetector({ fastMode: true, maxDetectedFaces: 1 });
@@ -889,21 +957,163 @@
         document.getElementById('ai-status-badge').textContent = "🟡 未取得鏡頭權限";
         document.getElementById('study-status-pill').textContent = "⚠️ 未開鏡頭：僅偵測是否離開網頁";
       }
+    }
 
-      setTimeout(() => {
-        document.getElementById('matching-overlay').style.display = 'none';
-        document.getElementById('focus-screen').style.display = 'grid';
+    async function findOrWaitRealPartner(myTask) {
+      const queueRef = ref(db, "match_queue");
+      const snap = await get(queueRef);
+      const now = Date.now();
+      let matchedCandidate = null;
 
-        const randomId = Math.floor(1000 + Math.random() * 9000);
-        const randomTask = partnerTasks[Math.floor(Math.random() * partnerTasks.length)];
-        document.getElementById('partner-id').textContent = `匿名戰友 #${randomId}`;
-        document.getElementById('partner-task-text').textContent = `戰友目標：${randomTask}`;
+      if (snap.exists()) {
+        const allWaiting = snap.val();
+        for (const [uid, info] of Object.entries(allWaiting)) {
+          if (uid === myUserId) continue;
+          if (info && info.mins === selectedMinutes && now - (info.createdAt || 0) < 120000) {
+            matchedCandidate = { uid, ...info };
+            break;
+          }
+        }
+      }
 
-        startTimer();
-        startVisionLoop();
-        startPartnerAutoCheer();
-      }, 1500);
-    });
+      if (matchedCandidate) {
+        const roomId = "room_" + matchedCandidate.uid + "_" + myUserId;
+        await remove(ref(db, "match_queue/" + matchedCandidate.uid));
+
+        const roomRef = ref(db, "rooms/" + roomId);
+        await set(roomRef, {
+          createdAt: serverTimestamp(),
+          users: {
+            [matchedCandidate.uid]: {
+              shortCode: matchedCandidate.shortCode,
+              task: matchedCandidate.task,
+              status: "focusing",
+              eventText: "",
+              eventTs: 0
+            },
+            [myUserId]: {
+              shortCode: myShortCode,
+              task: myTask,
+              status: "focusing",
+              eventText: "",
+              eventTs: 0
+            }
+          }
+        });
+
+        enterRealRoom(roomId, matchedCandidate.uid, matchedCandidate.shortCode, matchedCandidate.task);
+      } else {
+        const myQueueRef = ref(db, "match_queue/" + myUserId);
+        await set(myQueueRef, {
+          shortCode: myShortCode,
+          task: myTask,
+          mins: selectedMinutes,
+          createdAt: Date.now()
+        });
+        onDisconnect(myQueueRef).remove();
+
+        const roomsRef = ref(db, "rooms");
+        const unsubRooms = onValue(roomsRef, (roomsSnap) => {
+          if (!roomsSnap.exists() || currentRoomId) return;
+          const rooms = roomsSnap.val();
+          for (const [rId, rData] of Object.entries(rooms)) {
+            if (rData && rData.users && rData.users[myUserId]) {
+              const otherUid = Object.keys(rData.users).find(id => id !== myUserId);
+              if (otherUid) {
+                unsubRooms();
+                remove(myQueueRef);
+                const otherInfo = rData.users[otherUid];
+                enterRealRoom(rId, otherUid, otherInfo.shortCode, otherInfo.task);
+                break;
+              }
+            }
+          }
+        });
+      }
+    }
+
+    function enterRealRoom(roomId, otherUid, otherCode, otherTask) {
+      currentRoomId = roomId;
+      partnerUserId = otherUid;
+      isSoloFallback = false;
+
+      document.getElementById('matching-overlay').style.display = 'none';
+      document.getElementById('focus-screen').style.display = 'grid';
+      document.getElementById('partner-id').textContent = `真人戰友 ${otherCode}`;
+      document.getElementById('partner-task-text').textContent = `戰友目標：${otherTask}`;
+
+      const myUserInRoomRef = ref(db, `rooms/${roomId}/users/${myUserId}`);
+      onDisconnect(myUserInRoomRef).update({
+        status: "offline",
+        eventText: "🚪 戰友已離線（你的計時不受影響）",
+        eventTs: Date.now()
+      });
+
+      const partnerRef = ref(db, `rooms/${roomId}/users/${otherUid}`);
+      onValue(partnerRef, (snap) => {
+        if (!snap.exists()) return;
+        const pData = snap.val();
+
+        if (pData.task) {
+          document.getElementById('partner-task-text').textContent = `戰友目標：${pData.task}`;
+        }
+
+        const pillText = document.getElementById('partner-status-text');
+        const dot = document.getElementById('partner-dot');
+        if (pData.status === "offline") {
+          pillText.textContent = "戰友已離線 (你的計時照常進行)";
+          dot.className = "dot-amber";
+        } else if (pData.status === "completed") {
+          pillText.textContent = "戰友已完成他的專注！";
+          dot.className = "dot-green";
+        } else {
+          pillText.textContent = "真人專注中 (對方鏡頭已隱藏)";
+          dot.className = "dot-green";
+        }
+
+        if (pData.eventTs && pData.eventTs > lastPartnerEventTs && pData.eventText) {
+          lastPartnerEventTs = pData.eventTs;
+          showBubble(pData.eventText);
+          showPartnerNoticeBanner(pData.eventText);
+          playAlertSound("partner");
+        }
+      });
+
+      startTimer();
+      startVisionLoop();
+    }
+
+    window.startSoloFallback = function () {
+      if (firebaseReady) {
+        remove(ref(db, "match_queue/" + myUserId));
+      }
+      isSoloFallback = true;
+      document.getElementById('matching-overlay').style.display = 'none';
+      document.getElementById('focus-screen').style.display = 'grid';
+      document.getElementById('partner-id').textContent = "單人模擬戰友 #0000";
+      document.getElementById('partner-task-text').textContent = "戰友目標：複習國文古文注釋";
+      startTimer();
+      startVisionLoop();
+    };
+
+    function pushMyEventToPartner(status, eventText) {
+      if (!firebaseReady || !currentRoomId || isSoloFallback) return;
+      update(ref(db, `rooms/${currentRoomId}/users/${myUserId}`), {
+        status,
+        eventText,
+        eventTs: Date.now()
+      });
+    }
+
+    function showPartnerNoticeBanner(msg) {
+      const el = document.getElementById('partner-notice-banner');
+      el.textContent = msg;
+      el.style.display = 'block';
+      if (partnerBannerTimeout) clearTimeout(partnerBannerTimeout);
+      partnerBannerTimeout = setTimeout(() => {
+        el.style.display = 'none';
+      }, 4500);
+    }
 
     function updateViolationBadge() {
       const el = document.getElementById('violation-count-pill');
@@ -916,7 +1126,6 @@
       }
     }
 
-    // ================= 計時與系統結算 =================
     function startTimer() {
       isRunning = true;
       updateTimerDisplay();
@@ -954,13 +1163,18 @@
       ring.style.strokeDashoffset = circumference - (remainingSeconds / totalSeconds) * circumference;
     }
 
-    function handleResetPenalty(reasonText) {
+    window.handleResetPenalty = function (reasonText) {
       if (!isRunning) return;
       playAlertSound("reset");
       resetTimerOnly();
 
+      pushMyEventToPartner(
+        "focusing",
+        `⚠️ 戰友${myShortCode}剛才分心已重新計時（你的計時不受影響）`
+      );
+
       const banner = document.getElementById('warning-banner');
-      banner.textContent = `🔔 ${reasonText}！已響鈴並重新計時（第 ${violationCount} 次違規，保留同一位戰友）`;
+      banner.textContent = `🔔 ${reasonText}！已響鈴並重新計時（第 ${violationCount} 次違規）`;
       banner.style.display = 'block';
 
       document.getElementById('energy-beam').classList.add('danger');
@@ -978,12 +1192,16 @@
         document.getElementById('ai-status-badge').textContent = "🟢 系統 AI 監督中";
         document.getElementById('ai-status-badge').style.color = "#2ecc71";
       }, 4500);
-    }
+    };
 
-    // 中途有事離線：保留未完成任務，下次進來必須先完成這項
-    function goOfflineWithPendingTask() {
+    window.goOfflineWithPendingTask = function () {
       const currentTask = document.getElementById('display-my-task').textContent.trim();
       savePendingTask(currentTask);
+
+      pushMyEventToPartner(
+        "offline",
+        `🚪 戰友${myShortCode}中途有事離線（你的計時不受影響，請繼續加油！）`
+      );
 
       isRunning = false;
       clearInterval(timerInterval);
@@ -992,17 +1210,15 @@
 
       alert(`已記錄「${currentTask}」尚未完成並離線。\n下次打開 App 時，必須先完成這項任務才能開始新任務！`);
       location.reload();
-    }
+    };
 
-    // 離開網頁 -> 重新計時
     document.addEventListener('visibilitychange', () => {
       if (!isRunning) return;
       if (document.hidden) {
-        handleResetPenalty("偵測到你離開網頁或去做別的事");
+        window.handleResetPenalty("偵測到你離開網頁或去做別的事");
       }
     });
 
-    // ================= 本地端鏡頭人臉與讀書狀態偵測 =================
     function startVisionLoop() {
       const video = document.getElementById('webcam-video');
       const canvas = document.getElementById('vision-canvas');
@@ -1053,7 +1269,7 @@
           pill.textContent = `⚠️ 偵測不到人臉／離開鏡頭（${noPresenceSeconds}s）`;
 
           if (noPresenceSeconds >= 4) {
-            handleResetPenalty("偵測到你離開鏡頭畫面");
+            window.handleResetPenalty("偵測到你離開鏡頭畫面");
           }
         } else {
           noPresenceSeconds = 0;
@@ -1073,32 +1289,23 @@
           }
 
           if (lowActivitySeconds >= 25) {
-            handleResetPenalty("長時間無讀書/專注動作，疑似分心或離開");
+            window.handleResetPenalty("長時間無讀書/專注動作，疑似分心或離開");
           }
         }
       }, 1000);
     }
 
-    // ================= 戰友互動與系統嚴格判定 =================
-    function sendCheer(text) {
+    window.sendCheer = function (text) {
       showBubble(`你發送了：${text}`);
-      setTimeout(() => showBubble(`戰友回應：👍 收到，一起撐住！`), 1600);
-    }
+      pushMyEventToPartner("focusing", `💬 戰友${myShortCode}對你說：${text}`);
+    };
 
     function showBubble(msg) {
       const area = document.getElementById('bubble-area');
       area.innerHTML = `<div class="reaction-bubble">${msg}</div>`;
       setTimeout(() => {
         if (area.innerHTML.includes(msg)) area.innerHTML = '';
-      }, 3200);
-    }
-
-    function startPartnerAutoCheer() {
-      setInterval(() => {
-        if (!isRunning) return;
-        const msgs = ["戰友發送了：🔥 加油！", "戰友正在認真專注中...", "戰友發送了：⏳ 撐住！"];
-        showBubble(msgs[Math.floor(Math.random() * msgs.length)]);
-      }, 25000);
+      }, 4000);
     }
 
     function evaluateSystemCompletion() {
@@ -1110,36 +1317,30 @@
       const currentTask = document.getElementById('display-my-task').textContent.trim();
 
       if (violationCount === 0) {
-        // 真正走完倒數且全程無違規 -> 系統判定完成，解除鎖定
         clearPendingTask();
+        pushMyEventToPartner("completed", `🎉 戰友${myShortCode}已全程無違規完成他的任務！`);
         playAlertSound("success");
+
         document.getElementById('modal-icon').textContent = "🙌";
         document.getElementById('modal-title').textContent = "系統判定完成！";
         document.getElementById('modal-title').style.color = "#27ae60";
         document.getElementById('modal-desc').textContent =
           `恭喜！「${currentTask}」已走完 ${selectedMinutes} 分鐘且全程 0 違規，系統正式認定完成！`;
-        document.getElementById('modal-action-btn').textContent = "開始新任務";
       } else {
-        // 雖然時間走完，但期間有違規重計時紀錄 -> 不算無違規完成，保留為未完成任務
         remainingSeconds = selectedMinutes * 60;
         savePendingTask(currentTask);
         playAlertSound("reset");
+
         document.getElementById('modal-icon').textContent = "⚠️";
         document.getElementById('modal-title').textContent = "尚未達成「全程無違規」完成";
         document.getElementById('modal-title').style.color = "#d97706";
         document.getElementById('modal-desc').textContent =
           `本輪共有 ${violationCount} 次違規紀錄，系統尚未認定完成。「${currentTask}」仍列為未完成，下次進來必須先完成這項！`;
-        document.getElementById('modal-action-btn').textContent = "返回並重新挑戰此任務";
       }
 
       document.getElementById('result-modal').style.display = 'flex';
     }
 
-    function handleModalAction() {
-      location.reload();
-    }
-
-    // 頁面載入時檢查上次未完成任務
     initPendingTaskState();
   </script>
 </body>
